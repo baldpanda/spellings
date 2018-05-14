@@ -63,7 +63,9 @@ def all_words(list_of_words):
     Returns:
         (str): 6 copies of each word in list_of_words with varying
         numbers of letters replaced by blanks according to the six_words_with_spaces()
-        function. Each lot of six is outputted on a new line"""
+        function. Each lot of six is outputted on a new line
+        """
+
     all_words_fin = ""
     for word in list_of_words:
         all_words_fin = all_words_fin + six_words_with_spaces(word) + "\n"
