@@ -15,10 +15,18 @@ def word_space_spec(word, num_spaces):
         with " _ "
      """
 
-    leng = len(word)
-    replace_char_index = sample(range(0, leng), num_spaces)
-    rev_replace_char_index = sorted(replace_char_index, reverse=True)
     alt_word = list(word)
+    leng = len(word)
+    #keeping apostrophe in the word at all times to avoid confusion with users
+    if "'" in word:
+        apost_loc = word.index("'")
+        if randint(0,1) == 0:
+            replace_char_index = sample(range(0,apost_loc), num_spaces)
+        else:
+            replace_char_index = sample(range(0,apost_loc), num_spaces) + list(range((apost_loc + 1),leng))
+    else:
+        replace_char_index = sample(range(0, leng), num_spaces)
+    rev_replace_char_index = sorted(replace_char_index, reverse=True)
     for i in rev_replace_char_index:
         alt_word[i] = " _ "
     alt_word = "".join(alt_word)
