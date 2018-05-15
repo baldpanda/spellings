@@ -17,6 +17,7 @@ def word_space_spec(word, num_spaces):
 
     alt_word = list(word)
     leng = len(word)
+    #keeping apostrophe in the word at all times to avoid confusion with users
     if "'" in word:
         apost_loc = word.index("'")
         if randint(0,1) == 0:
