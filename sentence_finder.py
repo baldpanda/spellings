@@ -8,10 +8,11 @@ TO DO:
     * if the word of interest is the last word in the sentence, it returns the
     sentence with the word blanked but the punctuation is removed from the end
     of the sentence (implemented possible solution but needs testing)
+    * make searching more efficient
 """
 
 import os
-
+from random import shuffle
 #sentences.txt is a text file containing all of the current sentences
 data_path = os.path.join(os.getcwd(), 'sentences.txt')
 
@@ -32,16 +33,14 @@ def word_in_sent(word):
     for line in searchfile:
         sent_norm_list = sentence_normaliser(line)
         poss_sent = " ".join(sent_norm_list)
-        if word in poss_sent:
+        if word in add_space_before_punct(poss_sent, [",", ".", "!", "."]).split(" "):
             sentence = line
             break
     if not sentence:
-        #if the word is not in the sentence, get the user to input a sentence
-        #with the word in
         sentence = input('Please give a sentence with the word {} in: '.format(word))
         searchfile.write("\n" + sentence)
     searchfile.close()
-    return(sentence)
+    return(sentence.strip("\n"))
 
 
 def word_blanked(word):
@@ -63,7 +62,11 @@ def word_blanked(word):
     sent_list_norm = sentence_normaliser(sentence)
     word_loc = sent_list_norm.index(word)
     leng = len(word)
-    sentence_list[word_loc] = blanks(leng)
+    if "'" in word:
+        apost_loc = word.index("'")
+        sentence_list[word_loc] = blanks(apost_loc) + "'" + blanks((leng - apost_loc - 1))
+    else:
+        sentence_list[word_loc] = blanks(leng)
     updated_sentence = " ".join(sentence_list)
     updated_sentence = remove_space_before_punct(updated_sentence, [",", ".", "!", "?"])
     return(updated_sentence)
@@ -104,7 +107,7 @@ def add_space_before_punct(sent, list_of_punct):
         before
 
     Returns:
-        (str): input sentence but with space added before the punctuation
+        (str): input sentence but with  space added before the punctuation
         given in the list
     """
     sentence = sent
@@ -120,3 +123,25 @@ def remove_space_before_punct(sent, list_of_punct):
     for punct in list_of_punct:
         sentence = sentence.replace(" " + punct, punct)
     return(sentence)
+
+def example_sentence_mult(list_of_words):
+    """Takes a list of words and returns an example sentence for each.
+    For each of these sentences the target word is blanked out.
+
+    Args:
+        list_of_words (list): list of the words wanted for example sentences
+
+    Returns:
+        (str): Example sentences for each word in the input, with each
+        new sentence on a new line
+    """
+    #words need to be shuffled as list of words will be given at top of
+    #document
+    shuffle(list_of_words)
+    all_example_sentences = ""
+    for word in list_of_words:
+        all_example_sentences += word_blanked(word) + "\n"
+
+    return(all_example_sentences)
+
+#print(example_sentence_mult(["sat", "couldn't", "fruit", "elephant", "wouldn't"]))

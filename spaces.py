@@ -20,10 +20,12 @@ def word_space_spec(word, num_spaces):
     #keeping apostrophe in the word at all times to avoid confusion with users
     if "'" in word:
         apost_loc = word.index("'")
+        if num_spaces > apost_loc:
+            num_spaces = apost_loc
         if randint(0,1) == 0:
-            replace_char_index = sample(range(0,apost_loc), num_spaces)
+            replace_char_index = sample(range(0,apost_loc), (num_spaces))
         else:
-            replace_char_index = sample(range(0,apost_loc), num_spaces) + list(range((apost_loc + 1),leng))
+            replace_char_index = sample(range(0,apost_loc), (num_spaces)) + list(range((apost_loc + 1),leng))
     else:
         replace_char_index = sample(range(0, leng), num_spaces)
     rev_replace_char_index = sorted(replace_char_index, reverse=True)
