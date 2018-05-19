@@ -40,7 +40,7 @@ def word_in_sent(word):
         sentence = input('Please give a sentence with the word {} in: '.format(word))
         searchfile.write("\n" + sentence)
     searchfile.close()
-    return(sentence)
+    return(sentence.strip("\n"))
 
 
 def word_blanked(word):

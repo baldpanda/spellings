@@ -1,5 +1,6 @@
 import sentence_finder as sf
 import spaces
+import datetime
 
 def comb_funct(list_of_words):
     """Given a list of words, it will return an example sentence for each
@@ -16,8 +17,13 @@ def comb_funct(list_of_words):
         blanked out.
     """
     doc = ""
-    doc += sf.example_sentence_mult(list_of_words)
+    doc += sf.example_sentence_mult(list_of_words) + "\n"
     doc += spaces.all_words(list_of_words)
-    return(doc)
 
-print(comb_funct(["across", "sun", "hot", "better", "best", "than", "end", "looking", "there"]))
+    curr_date = str(datetime.datetime.now()).replace(".", "_").replace(" ", "_").replace(":", "_")
+    file_name = "spellings_" + curr_date + ".txt"
+    f = open(file_name, "w+")
+    f.write((doc))
+    f.close()
+
+comb_funct(["began", "sea", "right", "there", "door", "red", "must", "stop", "been", "was"])
