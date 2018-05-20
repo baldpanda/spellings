@@ -143,5 +143,3 @@ def example_sentence_mult(list_of_words):
         all_example_sentences += word_blanked(word) + "\n"
 
     return(all_example_sentences)
-
-#print(example_sentence_mult(["sat", "couldn't", "fruit", "elephant", "wouldn't"]))

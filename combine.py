@@ -16,14 +16,17 @@ def comb_funct(list_of_words):
         Below this 6 copies of each word, with a varying number of letters words
         blanked out.
     """
-    doc = ""
+    doc = "This weeks spellings are: "
+    for word in list_of_words:
+        doc += word + ", "
+    doc = doc[:-2]
+    doc += ":\n\n"
     doc += sf.example_sentence_mult(list_of_words) + "\n"
     doc += spaces.all_words(list_of_words)
 
+    #create a text file to put doc into
     curr_date = str(datetime.datetime.now()).replace(".", "_").replace(" ", "_").replace(":", "_")
     file_name = "spellings_" + curr_date + ".txt"
     f = open(file_name, "w+")
     f.write((doc))
     f.close()
-
-comb_funct(["began", "sea", "right", "there", "door", "red", "must", "stop", "been", "was"])
