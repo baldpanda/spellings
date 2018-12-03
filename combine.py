@@ -20,7 +20,7 @@ def comb_funct(list_of_words):
     for word in list_of_words:
         doc += word + ", "
     doc = doc[:-2]
-    doc += ":\n\n"
+    doc += "\n\n"
     doc += sf.example_sentence_mult(list_of_words) + "\n"
     doc += spaces.all_words(list_of_words)
 
@@ -30,3 +30,5 @@ def comb_funct(list_of_words):
     f = open(file_name, "w+")
     f.write((doc))
     f.close()
+
+comb_funct(["eye", "fast", "father", "find", "gold", "grass", "great", "half"])
