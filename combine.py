@@ -17,6 +17,7 @@ def comb_funct(list_of_words):
         blanked out.
     """
     doc = "This weeks spellings are: "
+    worksheets_directory = "worksheets" + "/"
     for word in list_of_words:
         doc += word + ", "
     doc = doc[:-2]
@@ -26,7 +27,7 @@ def comb_funct(list_of_words):
 
     #create a text file to put doc into
     curr_date = str(datetime.datetime.now()).replace(".", "_").replace(" ", "_").replace(":", "_")
-    file_name = "spellings_" + curr_date + ".txt"
+    file_name = worksheets_directory + "spellings_" + curr_date + ".txt"
     f = open(file_name, "w+")
     f.write((doc))
     f.close()
