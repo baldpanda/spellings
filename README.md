@@ -21,4 +21,4 @@ The other part of the worksheet is to provide example sentences of the words for
 
 ### Task sheet  
 
-[Tracking Document](https://docs.google.com/spreadsheets/d/1b7n9jMH4znF4PdvZG8OUg2JKpQFUeLSqzLiaEi_6rQc/edit#gid=0)]
+[Tracking Document](https://docs.google.com/spreadsheets/d/1b7n9jMH4znF4PdvZG8OUg2JKpQFUeLSqzLiaEi_6rQc/edit#gid=0)
