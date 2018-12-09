@@ -25,3 +25,13 @@ class Word_with_blanks:
             alt_word[i] = " _ "
         alt_word = "".join(alt_word)
         return alt_word
+
+        def replace_word_with_blanks(self):
+            len_of_word = len(self.word)
+            if len_of_word == 1:
+                a = "_"
+            else:
+                a = "_"
+                for i in range(0, len_of_word - 1):
+                    a += " _"
+            return(a)
