@@ -1,5 +1,5 @@
-from random import sample, randint
 import word_with_blanks
+from random import sample, randint
 
 class Six_words_with_blanks:
 

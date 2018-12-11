@@ -5,7 +5,6 @@ data_path = os.path.join(os.getcwd(), 'sentences.txt')
 
 
 class Word_with_blanks:
-
     def __init__(self, word):
         self.word = word
 

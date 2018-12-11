@@ -1,11 +1,13 @@
 import os
 from random import shuffle
 import mult_words_blanks as mwb
+import word_with_blanks as wwb
 #sentences.txt is a text file containing all of the current sentences
 data_path = os.path.join(os.getcwd(), 'sentences.txt')
 
 
 class Example_sentence:
+
     def __init__(self, line):
         self.sentence = line
 
@@ -28,51 +30,26 @@ class Example_sentence:
         sent_len = len(sent_norm)
         return(sent_norm)
 
+    def blank_word_in_sentence(self, word):
+        #sentence = word_in_sent(word)
+        self.sentence = self.add_space_before_punct([",", ".", "!", "?"])
+        sentence_list = self.sentence.split(" ")
+        sent_list_norm = self.sentence_normaliser()
+        word_loc = sent_list_norm.index(word)
+        leng = len(word)
+        if "'" in word:
+            apost_loc = word.split("'")
+            sentence_list[word_loc] = wwb.Word_with_blanks(apost_loc[0]).replace_all_letters_with_blanks().word + "'" + wwb.Word_with_blanks(apost_loc[1]).replace_all_letters_with_blanks().word
+        else:
+            sentence_list[word_loc] = wwb.Word_with_blanks(word).replace_all_letters_with_blanks().word
+        updated_sentence = " ".join(sentence_list)
+        sentence.sentence = updated_sentence
+        sentence.sentence = sentence.remove_space_before_punct([",", ".", "!", "?"])
+        return(updated_sentence)
 
+# abc = Example_sentence("I have a carrot.")
+# abc.blank_word_in_sentence("have")
 
-    # def word_in_sent(word):
-    #     searchfile = open(data_path, "r+")
-    #     sentence = ""
-    #     for line in searchfile:
-    #         sent_norm_list = sentence_normaliser(line)
-    #         poss_sent = " ".join(sent_norm_list)
-    #         if word in add_space_before_punct(poss_sent, [",", ".", "!", "."]).split(" "):
-    #             sentence = line
-    #             break
-    #     if not sentence:
-    #         sentence = input('Please give a sentence with the word {} in: '.format(word))
-    #         searchfile.write("\n" + sentence)
-    #     searchfile.close()
-    #     return(sentence.strip("\n"))
-#abc = Example_sentence()
-
-# def word_blanked(word):
-#     """ Given a word, this calls the word_in_sent function to provide
-#     an example of a sentence with that word in. It then replaces the word
-#     in the sentence with blanks equal to the number of letters of that word
-#     and returns the updated sentence.
-#
-#     Args:
-#         word (str): the required word
-#
-#     Returns:
-#         (str): an example sentence with the input word in, but the input word
-#         is replaced by blanks
-#     """
-#     sentence = word_in_sent(word)
-#     sentence = add_space_before_punct(sentence, [",", ".", "!", "?"])
-#     sentence_list = sentence.split(" ")
-#     sent_list_norm = sentence_normaliser(sentence)
-#     word_loc = sent_list_norm.index(word)
-#     leng = len(word)
-#     if "'" in word:
-#         apost_loc = word.index("'")
-#         sentence_list[word_loc] = blanks(apost_loc) + "'" + blanks((leng - apost_loc - 1))
-#     else:
-#         sentence_list[word_loc] = blanks(leng)
-#     updated_sentence = " ".join(sentence_list)
-#     updated_sentence = remove_space_before_punct(updated_sentence, [",", ".", "!", "?"])
-#     return(updated_sentence)
 #
 #
 # def example_sentence_mult(list_of_words):
