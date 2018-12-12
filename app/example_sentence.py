@@ -30,22 +30,22 @@ class Example_sentence:
         sent_len = len(sent_norm)
         return(sent_norm)
 
-    def blank_word_in_sentence(self, word):
-        #sentence = word_in_sent(word)
-        self.sentence = self.add_space_before_punct([",", ".", "!", "?"])
-        sentence_list = self.sentence.split(" ")
-        sent_list_norm = self.sentence_normaliser()
-        word_loc = sent_list_norm.index(word)
-        leng = len(word)
-        if "'" in word:
-            apost_loc = word.split("'")
-            sentence_list[word_loc] = wwb.Word_with_blanks(apost_loc[0]).replace_all_letters_with_blanks().word + "'" + wwb.Word_with_blanks(apost_loc[1]).replace_all_letters_with_blanks().word
-        else:
-            sentence_list[word_loc] = wwb.Word_with_blanks(word).replace_all_letters_with_blanks().word
-        updated_sentence = " ".join(sentence_list)
-        sentence.sentence = updated_sentence
-        sentence.sentence = sentence.remove_space_before_punct([",", ".", "!", "?"])
-        return(updated_sentence)
+    # def blank_word_in_sentence(self, word):
+    #     #sentence = word_in_sent(word)
+    #     self.sentence = self.add_space_before_punct([",", ".", "!", "?"])
+    #     sentence_list = self.sentence.split(" ")
+    #     sent_list_norm = self.sentence_normaliser()
+    #     word_loc = sent_list_norm.index(word)
+    #     leng = len(word)
+    #     if "'" in word:
+    #         apost_loc = word.split("'")
+    #         sentence_list[word_loc] = wwb.Word_with_blanks(apost_loc[0]).replace_all_letters_with_blanks().word + "'" + wwb.Word_with_blanks(apost_loc[1]).replace_all_letters_with_blanks().word
+    #     else:
+    #         sentence_list[word_loc] = wwb.Word_with_blanks(word).replace_all_letters_with_blanks().word
+    #     updated_sentence = " ".join(sentence_list)
+    #     sentence.sentence = updated_sentence
+    #     sentence.sentence = sentence.remove_space_before_punct([",", ".", "!", "?"])
+    #     return(updated_sentence)
 
 # abc = Example_sentence("I have a carrot.")
 # abc.blank_word_in_sentence("have")

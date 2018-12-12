@@ -1,10 +1,11 @@
 from random import sample, randint
 import os
-import example_sentence as ex_sent
+import example_sentence
 data_path = os.path.join(os.getcwd(), 'sentences.txt')
 
 
 class Word_with_blanks:
+
     def __init__(self, word):
         self.word = word
 
@@ -44,7 +45,7 @@ class Word_with_blanks:
         word = self.word
         sentence = ""
         for a in searchfile:
-            line = ex_sent.Example_sentence(a)
+            line = example_sentence.Example_sentence(a)
             sent_norm_list = line.sentence_normaliser()
             poss_sent = " ".join(sent_norm_list)
             if word in line.add_space_before_punct([",", ".", "!", "."]).split(" "):
