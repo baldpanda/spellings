@@ -1,6 +1,7 @@
 from random import sample, randint
 import os
-import example_sentence
+#import example_sentence
+
 data_path = os.path.join(os.getcwd(), 'sentences.txt')
 
 
@@ -39,20 +40,3 @@ class Word_with_blanks:
             for i in range(0, len_of_word - 1):
                 a += " _"
         return(a)
-
-    def search_txt_file_for_word(self):
-        searchfile = open(data_path, "r+")
-        word = self.word
-        sentence = ""
-        for a in searchfile:
-            line = example_sentence.Example_sentence(a)
-            sent_norm_list = line.sentence_normaliser()
-            poss_sent = " ".join(sent_norm_list)
-            if word in line.add_space_before_punct([",", ".", "!", "."]).split(" "):
-                sentence = line
-                break
-        if not sentence:
-            sentence = input('Please give a sentence with the word {} in: '.format(word))
-            searchfile.write("\n" + sentence)
-        searchfile.close()
-        return(line.sentence.strip("\n"))

@@ -26,3 +26,7 @@ The other part of the worksheet is to provide example sentences of the words for
 ### Bug tracking
 
 [Bug Tracking Document](https://docs.google.com/spreadsheets/d/1SNat5H0UZMDy05aP8zhM_CR6qLydwm5Q7iwJmIwHOkI/edit#gid=0)
+
+### To do
+
+12/12 - add call to search in blank_word_in_sentence
