@@ -189,3 +189,5 @@ Gold is worth a lot of money.
 My father works during the day.
 There is grass on the field.
 "There is an apple in the fridge"
+
+A carrot is a vegetable.

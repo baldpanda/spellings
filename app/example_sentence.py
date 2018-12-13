@@ -46,8 +46,8 @@ class Example_sentence:
         searchfile.close()
         return(line.sentence.strip("\n"))
 
-
     def blank_word_in_sentence(self, word):
+        self.sentence = self.search_txt_file_for_word(word)
         self.sentence = self.add_space_before_punct([",", ".", "!", "?"])
         sentence_list = self.sentence.split(" ")
         sent_list_norm = self.sentence_normaliser()
@@ -63,27 +63,12 @@ class Example_sentence:
         self.sentence = self.remove_space_before_punct([",", ".", "!", "?"])
         return(self.sentence)
 
-abc = Example_sentence("I have a carrot.")
-print(abc.blank_word_in_sentence("have"))
-
-
-
-def example_sentence_mult(list_of_words):
-    """Takes a list of words and returns an example sentence for each.
-    For each of these sentences the target word is blanked out.
-
-    Args:
-        list_of_words (list): list of the words wanted for example sentences
-
-    Returns:
-        (str): Example sentences for each word in the input, with each
-        new sentence on a new line
-    """
-    #words need to be shuffled as list of words will be given at top of
-    #document
-    shuffle(list_of_words)
-    all_example_sentences = ""
-    for word in list_of_words:
-        all_example_sentences += word_blanked(word) + "\n"
-
-    return(all_example_sentences)
+    def generate_mult_sentences_with_blanks(self, list_of_words):
+        #words need to be shuffled as list of words will be given at top of
+        #document
+        shuffle(list_of_words)
+        all_example_sentences = ""
+        for word in list_of_words:
+            ex_sentence = Example_sentence("")
+            all_example_sentences += ex_sentence.blank_word_in_sentence(word) + "\n"
+        return(all_example_sentences)
