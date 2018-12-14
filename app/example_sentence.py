@@ -33,18 +33,21 @@ class Example_sentence:
     def search_txt_file_for_word(self, word):
         searchfile = open(data_path, "r+")
         sentence = ""
-        for a in searchfile:
-            line = Example_sentence(a)
-            sent_norm_list = line.sentence_normaliser()
+        for line in searchfile:
+            ex_sentence = Example_sentence(line)
+            sent_norm_list = ex_sentence.sentence_normaliser()
             poss_sent = " ".join(sent_norm_list)
-            if word in line.add_space_before_punct([",", ".", "!", "."]).split(" "):
+            ex_sentence.sentence = poss_sent
+            if word in ex_sentence.add_space_before_punct([",", ".", "!", "."]).split(" "):
                 sentence = line
+                ex_sentence.sentence = line
                 break
         if not sentence:
             sentence = input('Please give a sentence with the word {} in: '.format(word))
+            ex_sentence.sentence = sentence
             searchfile.write("\n" + sentence)
         searchfile.close()
-        return(line.sentence.strip("\n"))
+        return(ex_sentence.sentence.strip("\n"))
 
     def blank_word_in_sentence(self, word):
         self.sentence = self.search_txt_file_for_word(word)
@@ -72,3 +75,6 @@ class Example_sentence:
             ex_sentence = Example_sentence("")
             all_example_sentences += ex_sentence.blank_word_in_sentence(word) + "\n"
         return(all_example_sentences)
+
+ex_sentence = Example_sentence("The cat sat on the mat.")
+print(ex_sentence.generate_mult_sentences_with_blanks(["test", "cat", "patrick"]))
