@@ -1,6 +1,5 @@
 import os
 from random import shuffle
-#import mult_words_blanks as mwb
 import word_with_blanks as wwb
 #sentences.txt is a text file containing all of the current sentences
 data_path = os.path.join(os.getcwd(), 'sentences.txt')
@@ -75,6 +74,3 @@ class Example_sentence:
             ex_sentence = Example_sentence("")
             all_example_sentences += ex_sentence.blank_word_in_sentence(word) + "\n"
         return(all_example_sentences)
-
-ex_sentence = Example_sentence("The cat sat on the mat.")
-print(ex_sentence.generate_mult_sentences_with_blanks(["test", "cat", "patrick"]))
