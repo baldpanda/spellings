@@ -35,18 +35,3 @@ class Worksheet:
         file = open(self.name, "w+")
         file.write((text_for_sheet))
         file.close()
-
-example_worksheet = Worksheet()
-print(example_worksheet.write_to_text_file(["tree", "cat", "hamster"]))
-
-    # def main():
-    #     example_worksheet = Worksheet()
-    #     list_of_words = input('Please enter a list of words: '.format(word))
-    #     example_worksheet.generate_introduction(list_of_words)
-    #     example_worksheet.generate_words_with_blanks(list_of_words)
-    #     example_worksheet.generate_sentences(list_of_words)
-    #     text_for_sheet = example_worksheet.introduction + "\n\n" + example_worksheet.words_with_blanks + "\n" + example_worksheet.sentences
-    #     example_sentence.write_to_text_file(text_for_sheet)
-    #
-    # if __name__ == "__main__":
-    #     main()
