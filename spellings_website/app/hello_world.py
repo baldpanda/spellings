@@ -23,9 +23,15 @@ def registration_page():
         return redirect(url_for('home'))
     return render_template('register.html', sample_sentence = sample_sentence, form = form)
 
-@app.route('/login')
+@app.route('/login', methods = ['GET', 'POST'])
 def login_page():
     form = LoginForm()
+    if form.validate_on_submit():
+        if form.email.data == 'pcallery@baldpanda.com' and form.password.data == 'password':
+            flash('Successful Login', 'success')
+            return redirect(url_for('home'))
+        else:
+            flash('Login Unsuccessful', 'danger')
     return render_template('login.html', sample_sentence = sample_sentence,form = form)
 
 if __name__ == '__main__':
