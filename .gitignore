@@ -2,3 +2,4 @@
 /__pycache__
 /app/__pycache__
 /spellings_website/env
+/spellings_website/app/site.db
