@@ -1,5 +1,6 @@
 from flask import render_template, url_for, flash, redirect
 from baldpanda_site import app, db, bcrypt
+from baldpanda_site import app
 from baldpanda_site.forms import RegistrationForm, LoginForm
 from baldpanda_site.models import User
 
