@@ -31,3 +31,7 @@ class LoginForm(FlaskForm):
     remember = BooleanField('Remember Me')
 
     submit = SubmitField('Login')
+
+class NewSentence(FlaskForm):
+    sentence = StringField('Sentence', validators=[DataRequired()])
+    submit = SubmitField('Submit')

@@ -2,7 +2,7 @@ from flask import render_template, url_for, flash, redirect, request
 from flask_login import login_user, current_user, logout_user, login_required
 from baldpanda_site import app, db, bcrypt
 from baldpanda_site import app
-from baldpanda_site.forms import RegistrationForm, LoginForm
+from baldpanda_site.forms import RegistrationForm, LoginForm, NewSentence
 from baldpanda_site.models import User
 
 sample_sentence = ("The _ _ _ sat on the mat.")
@@ -43,14 +43,18 @@ def login_page():
             return redirect(next_page) if next_page else redirect(url_for('home'))
         else:
             flash('Login Unsuccessful', 'danger')
-    return render_template('login.html', sample_sentence = sample_sentence,form = form)
+    return render_template('login.html', sample_sentence = sample_sentence, form = form)
 
 @app.route('/logout')
 def logout_page():
     logout_user()
     return redirect(url_for('home'))
 
-@app.route('/sentence_adder')
+@app.route('/sentence/new', methods = ['GET', 'POST'])
 @login_required
 def sentence_adder():
-    return render_template('sentence_adder.html', title = 'sentence_adder')
+    form = NewSentence()
+    if form.validate_on_submit():
+        flash('Your sentence has been added', 'success')
+        return(redirect(url_for('home')))
+    return render_template('sentence_adder.html', title = 'sentence_adder', form = form)
