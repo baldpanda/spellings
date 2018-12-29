@@ -4,8 +4,6 @@ from baldpanda_site import app, db, bcrypt
 from baldpanda_site.forms import RegistrationForm, LoginForm, NewSentence
 from baldpanda_site.models import User, Sentence
 
-sample_sentence = ("The _ _ _ sat on the mat.")
-
 @app.route('/')
 @app.route('/home')
 def home():
@@ -13,7 +11,8 @@ def home():
 
 @app.route('/spellings')
 def spelling_page():
-    return render_template('spellings.html', sample_sentence = sample_sentence)
+    sample_sentences = Sentence.query.filter(Sentence.sentence.like("%dog%")).first().sentence
+    return render_template('spellings.html', sample_sentences = sample_sentences)
 
 @app.route('/registration', methods = ['GET', 'POST'])
 def registration_page():
