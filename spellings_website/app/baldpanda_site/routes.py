@@ -1,9 +1,8 @@
 from flask import render_template, url_for, flash, redirect, request
 from flask_login import login_user, current_user, logout_user, login_required
 from baldpanda_site import app, db, bcrypt
-from baldpanda_site import app
 from baldpanda_site.forms import RegistrationForm, LoginForm, NewSentence
-from baldpanda_site.models import User
+from baldpanda_site.models import User, Sentence
 
 sample_sentence = ("The _ _ _ sat on the mat.")
 
@@ -55,6 +54,9 @@ def logout_page():
 def sentence_adder():
     form = NewSentence()
     if form.validate_on_submit():
+        sentence = Sentence(sentence = form.sentence.data, user_id = current_user.id)
+        db.session.add(sentence)
+        db.session.commit()
         flash('Your sentence has been added', 'success')
         return(redirect(url_for('home')))
     return render_template('sentence_adder.html', title = 'sentence_adder', form = form)
