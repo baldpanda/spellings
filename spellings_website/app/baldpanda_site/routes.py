@@ -9,10 +9,12 @@ from baldpanda_site.models import User, Sentence
 def home():
     return render_template('home.html')
 
-@app.route('/spellings')
+@app.route('/worksheet')
 def spelling_page():
+    sentence_list = []
     sample_sentences = Sentence.query.filter(Sentence.sentence.like("%dog%")).first().sentence
-    return render_template('spellings.html', sample_sentences = sample_sentences)
+    sentence_list.append(sample_sentences)
+    return render_template('spellings.html', sample_sentences = sentence_list)
 
 @app.route('/registration', methods = ['GET', 'POST'])
 def registration_page():
@@ -59,3 +61,16 @@ def sentence_adder():
         flash('Your sentence has been added', 'success')
         return(redirect(url_for('home')))
     return render_template('sentence_adder.html', title = 'sentence_adder', form = form)
+
+@app.route('/worksheet/<string:words>')
+def word_search(words):
+    print(words)
+    sentence_list = []
+    words_list = words.split('+')
+    for word in words_list:
+        word_to_query_in_middle = f"% {word} %"
+        word_to_query_at_front = f"{word} %"
+        word_to_query_at_end = f"% {word}."
+        sentence = Sentence.query.filter(Sentence.sentence.like(word_to_query_in_middle) | Sentence.sentence.like(word_to_query_at_front) | Sentence.sentence.like(word_to_query_at_end)).first().sentence
+        sentence_list.append(sentence)
+    return render_template('spellings.html', sample_sentences = sentence_list)

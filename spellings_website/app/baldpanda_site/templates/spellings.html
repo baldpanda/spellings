@@ -1,6 +1,8 @@
 {% extends "layout.html" %}
 {% block content %}
+  {% for sentence in sample_sentences %}
     <body>
-      <p>Example sentence: "{{sample_sentences}}"</p>
+      <p>{{sentence}}</p>
     </body>
+  {% endfor %}
 {% endblock content%}
