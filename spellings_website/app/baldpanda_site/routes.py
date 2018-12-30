@@ -28,7 +28,7 @@ def registration_page():
         db.session.commit()
         flash(f'Account created successfully for {form.username.data}.', 'success')
         return redirect(url_for('home'))
-    return render_template('register.html', sample_sentence = sample_sentence, form = form)
+    return render_template('register.html', form = form)
 
 @app.route('/login', methods = ['GET', 'POST'])
 def login_page():
@@ -43,7 +43,7 @@ def login_page():
             return redirect(next_page) if next_page else redirect(url_for('home'))
         else:
             flash('Login Unsuccessful', 'danger')
-    return render_template('login.html', sample_sentence = sample_sentence, form = form)
+    return render_template('login.html', form = form)
 
 @app.route('/logout')
 def logout_page():
@@ -63,6 +63,7 @@ def sentence_adder():
     return render_template('sentence_adder.html', title = 'sentence_adder', form = form)
 
 @app.route('/worksheet/<string:words>')
+@login_required
 def word_search(words):
     print(words)
     sentence_list = []
