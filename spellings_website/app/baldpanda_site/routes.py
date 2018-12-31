@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, redirect, request
 from flask_login import login_user, current_user, logout_user, login_required
 from baldpanda_site import app, db, bcrypt
-from baldpanda_site.forms import RegistrationForm, LoginForm, NewSentence
+from baldpanda_site.forms import RegistrationForm, LoginForm, NewSentence, WordsForSheet
 from baldpanda_site.models import User, Sentence
 
 @app.route('/')
@@ -9,12 +9,14 @@ from baldpanda_site.models import User, Sentence
 def home():
     return render_template('home.html')
 
-@app.route('/worksheet')
+@app.route('/worksheet', methods = ['GET', 'POST'])
 def spelling_page():
+    form = WordsForSheet()
     sentence_list = []
-    sample_sentences = Sentence.query.filter(Sentence.sentence.like("%dog%")).first().sentence
-    sentence_list.append(sample_sentences)
-    return render_template('spellings.html', sample_sentences = sentence_list)
+    if form.validate_on_submit():
+        words_for_search = form.words.data
+        return redirect(url_for('word_search', words = words_for_search))
+    return render_template('wordsearch.html', sample_sentences = sentence_list, form = form)
 
 @app.route('/registration', methods = ['GET', 'POST'])
 def registration_page():
