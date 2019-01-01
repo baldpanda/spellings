@@ -67,7 +67,6 @@ def sentence_adder():
 @app.route('/worksheet/<string:words>')
 @login_required
 def word_search(words):
-    print(words)
     sentence_list = []
     words_list = words.split('+')
     for word in words_list:
