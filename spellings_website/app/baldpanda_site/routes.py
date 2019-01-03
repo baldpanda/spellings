@@ -3,6 +3,7 @@ from flask_login import login_user, current_user, logout_user, login_required
 from baldpanda_site import app, db, bcrypt
 from baldpanda_site.forms import RegistrationForm, LoginForm, NewSentence, WordsForSheet
 from baldpanda_site.models import User, Sentence
+from baldpanda_site.six_words_with_spaces import Six_words_with_blanks
 
 @app.route('/')
 @app.route('/home')
@@ -70,6 +71,8 @@ def word_search(words):
     sentence_list = []
     words_list = words.split('+')
     for word in words_list:
+        six_words = Six_words_with_blanks()
+        sentence_list.append(six_words.generate_six_words_with_blanks(word))
         string_to_query_in_middle = f"% {word} %"
         string_to_query_at_front = f"{word} %"
         string_to_query_at_end = f"% {word}."
