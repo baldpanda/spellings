@@ -78,6 +78,9 @@ def word_search(words):
         string_to_query_at_end = f"% {word}."
         sentence = Sentence.query.filter(Sentence.sentence.like(string_to_query_in_middle)
         | Sentence.sentence.like(string_to_query_at_front)
-        | Sentence.sentence.like(string_to_query_at_end)).first().sentence
-        sentence_list.append(sentence)
+        | Sentence.sentence.like(string_to_query_at_end)).first()
+        if sentence:
+            sentence_list.append(sentence.sentence)
+        else:
+            return redirect(url_for('sentence_adder'))
     return render_template('spellings.html', sample_sentences = sentence_list)
