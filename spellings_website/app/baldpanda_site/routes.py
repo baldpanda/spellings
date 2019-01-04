@@ -4,6 +4,7 @@ from baldpanda_site import app, db, bcrypt
 from baldpanda_site.forms import RegistrationForm, LoginForm, NewSentence, WordsForSheet
 from baldpanda_site.models import User, Sentence
 from baldpanda_site.six_words_with_spaces import Six_words_with_blanks
+from baldpanda_site.example_sentence import Example_sentence
 
 @app.route('/')
 @app.route('/home')
@@ -80,7 +81,8 @@ def word_search(words):
         | Sentence.sentence.like(string_to_query_at_front)
         | Sentence.sentence.like(string_to_query_at_end)).first()
         if sentence:
-            sentence_list.append(sentence.sentence)
+            sentence_with_blanks = Example_sentence(sentence.sentence)
+            sentence_list.append(sentence_with_blanks.blank_out_word_in_sentence(word))
         else:
             return redirect(url_for('sentence_adder'))
     return render_template('spellings.html', sample_sentences = sentence_list)

@@ -1,9 +1,6 @@
 import os
 from random import shuffle
-import word_with_blanks as wwb
-#sentences.txt is a text file containing all of the current sentences
-data_path = os.path.join(os.getcwd(), 'sentences.txt')
-
+from baldpanda_site.word_with_blanks import Word_with_blanks
 
 class Example_sentence:
 
@@ -29,27 +26,7 @@ class Example_sentence:
         sent_len = len(sent_norm)
         return(sent_norm)
 
-    def search_txt_file_for_word(self, word):
-        searchfile = open(data_path, "r+")
-        sentence = ""
-        for line in searchfile:
-            ex_sentence = Example_sentence(line)
-            sent_norm_list = ex_sentence.sentence_normaliser()
-            poss_sent = " ".join(sent_norm_list)
-            ex_sentence.sentence = poss_sent
-            if word in ex_sentence.add_space_before_punct([",", ".", "!", "."]).split(" "):
-                sentence = line
-                ex_sentence.sentence = line
-                break
-        if not sentence:
-            sentence = input('Please give a sentence with the word {} in: '.format(word))
-            ex_sentence.sentence = sentence
-            searchfile.write("\n" + sentence)
-        searchfile.close()
-        return(ex_sentence.sentence.strip("\n"))
-
     def blank_out_word_in_sentence(self, word):
-        self.sentence = self.search_txt_file_for_word(word)
         self.sentence = self.add_space_before_punct([",", ".", "!", "?"])
         sentence_list = self.sentence.split(" ")
         sent_list_norm = self.sentence_normaliser()
@@ -57,9 +34,9 @@ class Example_sentence:
         leng = len(word)
         if "'" in word:
             apost_loc = word.split("'")
-            sentence_list[word_loc] = wwb.Word_with_blanks(apost_loc[0]).replace_all_letters_with_blanks()+ "'" + wwb.Word_with_blanks(apost_loc[1]).replace_all_letters_with_blanks()
+            sentence_list[word_loc] = Word_with_blanks(apost_loc[0]).replace_all_letters_with_blanks()+ "'" + Word_with_blanks(apost_loc[1]).replace_all_letters_with_blanks()
         else:
-            sentence_list[word_loc] = wwb.Word_with_blanks(word).replace_all_letters_with_blanks()
+            sentence_list[word_loc] = Word_with_blanks(word).replace_all_letters_with_blanks()
         updated_sentence = " ".join(sentence_list)
         self.sentence = updated_sentence
         self.sentence = self.remove_space_before_punct([",", ".", "!", "?"])
