@@ -23,7 +23,6 @@ class Example_sentence:
         sent_norm = self.sentence.replace("\n", "")
         sent_norm = sent_norm.split(" ")
         sent_norm[0] = sent_norm[0].lower()
-        sent_len = len(sent_norm)
         return(sent_norm)
 
     def blank_out_word_in_sentence(self, word):
