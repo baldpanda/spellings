@@ -64,16 +64,16 @@ def sentence_adder():
         db.session.commit()
         flash('Your sentence has been added', 'success')
         return(redirect(url_for('home')))
-    return render_template('sentence_adder.html', title = 'sentence_adder', form = form)
+    return render_template('sentence_adder_page.html', title = 'sentence_adder', form = form)
 
 @app.route('/worksheet/<string:words>')
 @login_required
 def word_search(words):
-    sentence_list = []
+    sentence_list = [[],[]]
     words_list = words.split('+')
     for word in words_list:
         six_words = Six_words_with_blanks()
-        sentence_list.append(six_words.generate_six_words_with_blanks(word))
+        sentence_list[0].append(six_words.generate_six_words_with_blanks(word))
         string_to_query_in_middle = f"% {word} %"
         string_to_query_at_front = f"{word} %"
         string_to_query_at_end = f"% {word}."
@@ -82,7 +82,7 @@ def word_search(words):
         | Sentence.sentence.like(string_to_query_at_end)).first()
         if sentence:
             sentence_with_blanks = Example_sentence(sentence.sentence)
-            sentence_list.append(sentence_with_blanks.blank_out_word_in_sentence(word))
+            sentence_list[1].append(sentence_with_blanks.blank_out_word_in_sentence(word))
         else:
             return redirect(url_for('sentence_adder'))
-    return render_template('spellings.html', sample_sentences = sentence_list)
+    return render_template('worksheet.html', sample_sentences = sentence_list)
