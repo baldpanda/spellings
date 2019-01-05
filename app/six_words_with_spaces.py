@@ -9,7 +9,6 @@ class Six_words_with_blanks:
     def generate_six_words_with_blanks(self, word):
         word_len = len(word)
         num_spaces = 1
-        # letters_remain = word_len - num_spaces
         for i in range(0, 6):
             word_containing_blanks = word_with_blanks.Word_with_blanks(word)
             if word_len - num_spaces >= 0:

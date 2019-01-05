@@ -48,7 +48,7 @@ class Example_sentence:
         searchfile.close()
         return(ex_sentence.sentence.strip("\n"))
 
-    def blank_word_in_sentence(self, word):
+    def blank_out_word_in_sentence(self, word):
         self.sentence = self.search_txt_file_for_word(word)
         self.sentence = self.add_space_before_punct([",", ".", "!", "?"])
         sentence_list = self.sentence.split(" ")
@@ -66,11 +66,9 @@ class Example_sentence:
         return(self.sentence)
 
     def generate_mult_sentences_with_blanks(self, list_of_words):
-        #words need to be shuffled as list of words will be given at top of
-        #document
         shuffle(list_of_words)
         all_example_sentences = ""
         for word in list_of_words:
             ex_sentence = Example_sentence("")
-            all_example_sentences += ex_sentence.blank_word_in_sentence(word) + "\n"
+            all_example_sentences += ex_sentence.blank_out_word_in_sentence(word) + "\n"
         return(all_example_sentences)

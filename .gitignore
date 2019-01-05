@@ -1,4 +1,5 @@
 /worksheets
 /__pycache__
 /app/__pycache__
-/app/spellings_website/
+/spellings_website/env
+spellings_website/app/baldpanda_site/site.db
