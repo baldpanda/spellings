@@ -17,6 +17,8 @@ def spelling_page():
     sentence_list = []
     if form.validate_on_submit():
         words_for_search = form.words.data
+        words_for_search = words_for_search.replace(" ", "")
+        words_for_search = words_for_search.replace(",", "+")
         return redirect(url_for('word_search', words = words_for_search))
     return render_template('wordsearch.html', sample_sentences = sentence_list, form = form)
 

@@ -35,5 +35,6 @@ class NewSentence(FlaskForm):
 
 
 class WordsForSheet(FlaskForm):
-    words = StringField('Words', validators=[DataRequired()])
+    words = StringField('Please enter the required words, seperating them using a comma.'
+    , validators=[DataRequired()])
     submit = SubmitField('Make Worksheet')
