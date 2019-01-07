@@ -37,4 +37,4 @@ class Worksheet:
         file.close()
 
 this_weeks_words = Worksheet()
-this_weeks_words.write_to_text_file(["accident", "accidentally", "actually", "actual", "answer"])
+this_weeks_words.write_to_text_file(["flies", "cries", "spies", "tries", "replies", "carries", "babies", "supplies", "lorries", "copies"])
