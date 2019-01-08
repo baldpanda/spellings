@@ -35,3 +35,6 @@ class Worksheet:
         file = open(self.name, "w+")
         file.write((text_for_sheet))
         file.close()
+
+this_weeks_words = Worksheet()
+this_weeks_words.write_to_text_file(["flies", "cries", "spies", "tries", "replies", "carries", "babies", "supplies", "lorries", "copies"])
