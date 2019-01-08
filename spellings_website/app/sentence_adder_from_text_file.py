@@ -7,7 +7,6 @@ text_file = open(data_path, "r+")
 sentence = ""
 for sentence in text_file:
     sentence = sentence.rstrip()
-    sentence = " " + sentence
     sentence_to_add = Sentence(sentence = sentence, user_id = 1)
     db.session.add(sentence_to_add)
     db.session.commit()
