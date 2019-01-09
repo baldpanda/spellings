@@ -19,6 +19,18 @@ class Example_sentence:
             sentence = sentence.replace(punct, " " + punct)
         return(sentence)
 
+    def add_space_before_and_after_punct(self, list_of_punct):
+        sentence = self.sentence
+        for punct in list_of_punct:
+            sentence = sentence.replace(punct, " " + punct + " ")
+        return(sentence)
+
+    def remove_space_before_and_after_punct(self, list_of_punct):
+        sentence = self.sentence
+        for punct in list_of_punct:
+            sentence = sentence.replace(" " + punct + " ", punct)
+        return(sentence)
+
     def sentence_normaliser(self):
         sent_norm = self.sentence.replace("\n", "")
         sent_norm = sent_norm.split(" ")

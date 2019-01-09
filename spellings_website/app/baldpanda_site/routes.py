@@ -61,7 +61,9 @@ def logout_page():
 def sentence_adder():
     form = NewSentence()
     if form.validate_on_submit():
-        sentence = Sentence(sentence = form.sentence.data, user_id = current_user.id)
+        sentence_to_add_to_db = Example_sentence(form.sentence.data)
+        sentence = " " + sentence_to_add_to_db.add_space_before_and_after_punct([",", ".", "!", "?", '"', "'"])
+        sentence = Sentence(sentence = sentence, user_id = current_user.id)
         db.session.add(sentence)
         db.session.commit()
         flash('Your sentence has been added', 'success')
@@ -76,14 +78,11 @@ def word_search(words):
     for word in words_list:
         six_words = Six_words_with_blanks()
         sentence_list[0].append(six_words.generate_six_words_with_blanks(word))
-        string_to_query_in_middle = f"% {word} %"
-        string_to_query_at_front = f"{word} %"
-        string_to_query_at_end = f"% {word}."
-        sentence = Sentence.query.filter(Sentence.sentence.like(string_to_query_in_middle)
-        | Sentence.sentence.like(string_to_query_at_front)
-        | Sentence.sentence.like(string_to_query_at_end)).first()
+        string_to_query_in_middle = f"%{word}%"
+        sentence = Sentence.query.filter(Sentence.sentence.like(string_to_query_in_middle)).first()
         if sentence:
             sentence_with_blanks = Example_sentence(sentence.sentence)
+            sentence_with_blanks.sentence = sentence_with_blanks.remove_space_before_and_after_punct([",", ".", "!", "?", '"', "'"])
             sentence_list[1].append(sentence_with_blanks.blank_out_word_in_sentence(word))
         else:
             return redirect(url_for('sentence_adder'))
