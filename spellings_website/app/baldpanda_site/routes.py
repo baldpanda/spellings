@@ -78,7 +78,7 @@ def word_search(words):
     for word in words_list:
         six_words = Six_words_with_blanks()
         sentence_list[0].append(six_words.generate_six_words_with_blanks(word))
-        string_to_query_in_middle = f"%{word}%"
+        string_to_query_in_middle = f"% {word} %"
         sentence = Sentence.query.filter(Sentence.sentence.like(string_to_query_in_middle)).first()
         if sentence:
             sentence_with_blanks = Example_sentence(sentence.sentence)
