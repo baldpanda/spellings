@@ -62,7 +62,7 @@ def sentence_adder():
     form = NewSentence()
     if form.validate_on_submit():
         sentence_to_add_to_db = Example_sentence(form.sentence.data)
-        sentence = " " + sentence_to_add_to_db.add_space_before_and_after_punct([",", ".", "!", "?", '"', "'"])
+        sentence = " " + sentence_to_add_to_db.add_space_before_and_after_punct([",", ".", "!", "?", '"'])
         sentence = Sentence(sentence = sentence, user_id = current_user.id)
         db.session.add(sentence)
         db.session.commit()
@@ -82,7 +82,7 @@ def word_search(words):
         sentence = Sentence.query.filter(Sentence.sentence.like(string_to_query_in_middle)).first()
         if sentence:
             sentence_with_blanks = Example_sentence(sentence.sentence)
-            sentence_with_blanks.sentence = sentence_with_blanks.remove_space_before_and_after_punct([",", ".", "!", "?", '"', "'"])
+            sentence_with_blanks.sentence = sentence_with_blanks.remove_space_before_and_after_punct([",", ".", "!", "?", '"'])
             sentence_list[1].append(sentence_with_blanks.blank_out_word_in_sentence(word))
         else:
             return redirect(url_for('sentence_adder'))

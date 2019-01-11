@@ -38,7 +38,7 @@ class Example_sentence:
         return(sent_norm)
 
     def blank_out_word_in_sentence(self, word):
-        self.sentence = self.add_space_before_punct([",", ".", "!", "?"])
+        self.sentence = self.add_space_before_and_after_punct([",", ".", "!", "?", '"'])
         sentence_list = self.sentence.split(" ")
         sent_list_norm = self.sentence_normaliser()
         word_loc = sent_list_norm.index(word)
@@ -50,7 +50,7 @@ class Example_sentence:
             sentence_list[word_loc] = Word_with_blanks(word).replace_all_letters_with_blanks()
         updated_sentence = " ".join(sentence_list)
         self.sentence = updated_sentence
-        self.sentence = self.remove_space_before_punct([",", ".", "!", "?"])
+        self.sentence = self.remove_space_before_and_after_punct([",", ".", "!", "?", '"'])
         return(self.sentence)
 
     def generate_mult_sentences_with_blanks(self, list_of_words):

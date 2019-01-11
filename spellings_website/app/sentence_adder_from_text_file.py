@@ -10,7 +10,7 @@ sentence_obj = Example_sentence(sentence)
 for sentence in text_file:
     sentence = sentence.rstrip()
     sentence_obj.sentence = " " + sentence
-    sentence = sentence_obj.add_space_before_and_after_punct([",", ".", "!", "?", '"', "'"])
+    sentence = sentence_obj.add_space_before_and_after_punct([",", ".", "!", "?", '"'])
     sentence_to_add = Sentence(sentence = sentence, user_id = 1)
     db.session.add(sentence_to_add)
     db.session.commit()
