@@ -58,7 +58,7 @@ def logout_page():
 
 @app.route('/sentence/new', methods = ['GET', 'POST'])
 @login_required
-def sentence_adder():
+def sentence_adder(words_to_add):
     form = NewSentence()
     if form.validate_on_submit():
         sentence_to_add_to_db = Example_sentence(form.sentence.data)
@@ -68,7 +68,7 @@ def sentence_adder():
         db.session.commit()
         flash('Your sentence has been added', 'success')
         return(redirect(url_for('home')))
-    return render_template('sentence_adder_page.html', title = 'sentence_adder', form = form)
+    return render_template('sentence_adder_page.html', title = 'sentence_adder', form = form, words_to_add = words_to_add)
 
 @app.route('/worksheet/<string:words>')
 @login_required
