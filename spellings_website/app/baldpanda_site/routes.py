@@ -56,7 +56,7 @@ def logout_page():
     logout_user()
     return redirect(url_for('home'))
 
-@app.route('/sentence/new', methods = ['GET', 'POST'])
+@app.route('/sentence/<string:words_to_add>', methods = ['GET', 'POST'])
 @login_required
 def sentence_adder(words_to_add):
     form = NewSentence()
@@ -67,7 +67,7 @@ def sentence_adder(words_to_add):
         db.session.add(sentence)
         db.session.commit()
         flash('Your sentence has been added', 'success')
-        return(redirect(url_for('home')))
+        return(redirect(url_for('spelling_page')))
     return render_template('sentence_adder_page.html', title = 'sentence_adder', form = form, words_to_add = words_to_add)
 
 @app.route('/worksheet/<string:words>')
@@ -75,6 +75,7 @@ def sentence_adder(words_to_add):
 def word_search(words):
     sentence_list = [[],[]]
     words_list = words.split('+')
+    words_not_in_db = ''
     for word in words_list:
         six_words = Six_words_with_blanks()
         sentence_list[0].append(six_words.generate_six_words_with_blanks(word))
@@ -85,5 +86,8 @@ def word_search(words):
             sentence_with_blanks.sentence = sentence_with_blanks.remove_space_before_and_after_punct([",", ".", "!", "?", '"'])
             sentence_list[1].append(sentence_with_blanks.blank_out_word_in_sentence(word))
         else:
-            return redirect(url_for('sentence_adder'))
-    return render_template('worksheet.html', sample_sentences = sentence_list)
+            words_not_in_db += word + "   "
+    if len(words_not_in_db) == 0:
+        return render_template('worksheet.html', sample_sentences = sentence_list)
+    else:
+        return redirect(url_for('sentence_adder', words_to_add=words_not_in_db))

@@ -5,6 +5,13 @@
     {{ form.hidden_tag() }}
     <fieldset class="form-group">
       <legend class="border-bottom mb-4">Add Sentence</legend>
+      {% if words_to_add=='default' %}
+      <p></p>
+      {% else %}
+      <p>Please add the following words:
+
+      {{words_to_add}}</p>
+      {% endif %}
       <div class="form-group">
         {{ form.sentence.label(class="form-control-label") }}
         {% if form.sentence.errors %}

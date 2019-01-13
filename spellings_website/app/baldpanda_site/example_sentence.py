@@ -34,14 +34,14 @@ class Example_sentence:
     def sentence_normaliser(self):
         sent_norm = self.sentence.replace("\n", "")
         sent_norm = sent_norm.split(" ")
-        sent_norm[0] = sent_norm[0].lower()
+        sent_norm = [word.lower() for word in sent_norm]
         return(sent_norm)
 
     def blank_out_word_in_sentence(self, word):
         self.sentence = self.add_space_before_and_after_punct([",", ".", "!", "?", '"'])
         sentence_list = self.sentence.split(" ")
         sent_list_norm = self.sentence_normaliser()
-        word_loc = sent_list_norm.index(word)
+        word_loc = sent_list_norm.index(word.lower())
         leng = len(word)
         if "'" in word:
             apost_loc = word.split("'")
