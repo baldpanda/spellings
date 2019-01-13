@@ -56,35 +56,38 @@ def logout_page():
     logout_user()
     return redirect(url_for('home'))
 
-@app.route('/sentence/new', methods = ['GET', 'POST'])
+@app.route('/sentence/<string:words_to_add>', methods = ['GET', 'POST'])
 @login_required
-def sentence_adder():
+def sentence_adder(words_to_add):
     form = NewSentence()
     if form.validate_on_submit():
-        sentence = Sentence(sentence = form.sentence.data, user_id = current_user.id)
+        sentence_to_add_to_db = Example_sentence(form.sentence.data)
+        sentence = " " + sentence_to_add_to_db.add_space_before_and_after_punct([",", ".", "!", "?", '"'])
+        sentence = Sentence(sentence = sentence, user_id = current_user.id)
         db.session.add(sentence)
         db.session.commit()
         flash('Your sentence has been added', 'success')
-        return(redirect(url_for('home')))
-    return render_template('sentence_adder_page.html', title = 'sentence_adder', form = form)
+        return(redirect(url_for('spelling_page')))
+    return render_template('sentence_adder_page.html', title = 'sentence_adder', form = form, words_to_add = words_to_add)
 
 @app.route('/worksheet/<string:words>')
 @login_required
 def word_search(words):
     sentence_list = [[],[]]
     words_list = words.split('+')
+    words_not_in_db = ''
     for word in words_list:
         six_words = Six_words_with_blanks()
         sentence_list[0].append(six_words.generate_six_words_with_blanks(word))
         string_to_query_in_middle = f"% {word} %"
-        string_to_query_at_front = f"{word} %"
-        string_to_query_at_end = f"% {word}."
-        sentence = Sentence.query.filter(Sentence.sentence.like(string_to_query_in_middle)
-        | Sentence.sentence.like(string_to_query_at_front)
-        | Sentence.sentence.like(string_to_query_at_end)).first()
+        sentence = Sentence.query.filter(Sentence.sentence.like(string_to_query_in_middle)).first()
         if sentence:
             sentence_with_blanks = Example_sentence(sentence.sentence)
+            sentence_with_blanks.sentence = sentence_with_blanks.remove_space_before_and_after_punct([",", ".", "!", "?", '"'])
             sentence_list[1].append(sentence_with_blanks.blank_out_word_in_sentence(word))
         else:
-            return redirect(url_for('sentence_adder'))
-    return render_template('worksheet.html', sample_sentences = sentence_list)
+            words_not_in_db += word + "   "
+    if len(words_not_in_db) == 0:
+        return render_template('worksheet.html', sample_sentences = sentence_list)
+    else:
+        return redirect(url_for('sentence_adder', words_to_add=words_not_in_db))
