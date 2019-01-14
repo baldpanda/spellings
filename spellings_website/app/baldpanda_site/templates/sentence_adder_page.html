@@ -5,15 +5,10 @@
     {{ form.hidden_tag() }}
     <fieldset class="form-group">
       <legend class="border-bottom mb-4">Add Sentence</legend>
-      {% if words_to_add=='default' %}
-      <p></p>
-      {% else %}
-      <p>Please add the following words:
-
-      {{words_to_add}}</p>
-      {% endif %}
+      {% set list_of_words = words_to_add.split('+') %}
+      {% for i in list_of_words %}
       <div class="form-group">
-        {{ form.sentence.label(class="form-control-label") }}
+        Please enter a sentence with the word {{ i }} in it:
         {% if form.sentence.errors %}
           {{ form.sentence(class="form-control form-control-lg is-invalid") }}
           <div class="invalid-feedback">
@@ -25,6 +20,7 @@
           {{ form.sentence(class="form-control form-control-lg") }}
         {% endif %}
       </div>
+      {% endfor %}
     </fieldset>
     <div class="form-group">
       {{ form.submit(class="btn btn-outline-info") }}
