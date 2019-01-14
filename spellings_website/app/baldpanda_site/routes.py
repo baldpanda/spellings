@@ -86,8 +86,9 @@ def word_search(words):
             sentence_with_blanks.sentence = sentence_with_blanks.remove_space_before_and_after_punct([",", ".", "!", "?", '"'])
             sentence_list[1].append(sentence_with_blanks.blank_out_word_in_sentence(word))
         else:
-            words_not_in_db += word + "   "
+            words_not_in_db += word + "+"
     if len(words_not_in_db) == 0:
         return render_template('worksheet.html', sample_sentences = sentence_list)
     else:
+        words_not_in_db = words_not_in_db[:-1] 
         return redirect(url_for('sentence_adder', words_to_add=words_not_in_db))
