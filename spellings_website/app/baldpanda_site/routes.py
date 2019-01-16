@@ -68,7 +68,8 @@ def sentence_adder(words_to_add):
         db.session.commit()
         flash('Your sentence has been added', 'success')
         return(redirect(url_for('spelling_page')))
-    return render_template('sentence_adder_page.html', title = 'sentence_adder', form = form, words_to_add = words_to_add)
+    return render_template('sentence_adder_page.html', title = 'sentence_adder',
+    form = form, words_to_add = words_to_add)
 
 @app.route('/worksheet/<string:words>')
 @login_required
@@ -83,12 +84,13 @@ def word_search(words):
         sentence = Sentence.query.filter(Sentence.sentence.like(string_to_query_in_middle)).first()
         if sentence:
             sentence_with_blanks = Example_sentence(sentence.sentence)
-            sentence_with_blanks.sentence = sentence_with_blanks.remove_space_before_and_after_punct([",", ".", "!", "?", '"'])
+            sentence_with_blanks.sentence = sentence_with_blanks.remove_space_before_and_after_punct(
+            [",",".", "!", "?",'"'])
             sentence_list[1].append(sentence_with_blanks.blank_out_word_in_sentence(word))
         else:
             words_not_in_db += word + "+"
     if len(words_not_in_db) == 0:
         return render_template('worksheet.html', sample_sentences = sentence_list)
     else:
-        words_not_in_db = words_not_in_db[:-1] 
+        words_not_in_db = words_not_in_db[:-1]
         return redirect(url_for('sentence_adder', words_to_add=words_not_in_db))
