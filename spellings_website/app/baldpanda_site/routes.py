@@ -90,7 +90,7 @@ def word_search(words):
         else:
             words_not_in_db += word + "+"
     if len(words_not_in_db) == 0:
-        return render_template('worksheet.html', sample_sentences = sentence_list)
+        return render_template('worksheet.html', sample_sentences = sentence_list, words = words_list)
     else:
         words_not_in_db = words_not_in_db[:-1]
         return redirect(url_for('sentence_adder', words_to_add=words_not_in_db))
