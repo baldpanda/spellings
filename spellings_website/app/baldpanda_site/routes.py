@@ -76,6 +76,7 @@ def sentence_adder(words_to_add):
 def word_search(words):
     sentence_list = [[],[]]
     words_list = words.split('+')
+    words_for_page = words.replace('+', ', ')
     words_not_in_db = ''
     for word in words_list:
         six_words = Six_words_with_blanks()
@@ -90,7 +91,7 @@ def word_search(words):
         else:
             words_not_in_db += word + "+"
     if len(words_not_in_db) == 0:
-        return render_template('worksheet.html', sample_sentences = sentence_list, words = words_list)
+        return render_template('worksheet.html', sample_sentences = sentence_list, words = words_for_page)
     else:
         words_not_in_db = words_not_in_db[:-1]
         return redirect(url_for('sentence_adder', words_to_add=words_not_in_db))
