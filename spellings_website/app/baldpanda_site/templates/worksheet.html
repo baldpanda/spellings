@@ -2,10 +2,7 @@
 {% block content %}
 {% if words %}
 <body>
-This weeks spellings are:
-  {% for a in words %}
-    <b>{{ a }}</b>
-  {% endfor %}
+This weeks spellings are: <b> {{ words }} </b>
 </body>
 {% endif %}
   {% for sentence_list in sample_sentences %}
