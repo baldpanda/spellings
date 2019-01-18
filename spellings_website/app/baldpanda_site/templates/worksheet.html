@@ -1,15 +1,21 @@
 {% extends "layout.html" %}
 {% block content %}
 {% if words %}
-<body>
-This weeks spellings are: <b> {{ words }} </b>
-</body>
+<div>
+  <body>
+  This weeks spellings are: <b> {{ words }} </b>
+  </body>
 {% endif %}
-  {% for sentence_list in sample_sentences %}
-    {% for sentence in sentence_list %}
-    <body>
-      <p>{{sentence}}</p>
-    </body>
+</div>
+<div>
+  <p>
+    {% for sentence_list in sample_sentences %}
+      {% for sentence in sentence_list %}
+      <body>
+        <p>{{sentence}}</p>
+      </body>
+      {% endfor %}
     {% endfor %}
-  {% endfor %}
+  </p>
+</div>
 {% endblock content%}
