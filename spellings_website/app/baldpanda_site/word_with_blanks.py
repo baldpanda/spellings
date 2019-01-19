@@ -1,9 +1,7 @@
 from random import sample, randint
 import os
-#import example_sentence
 
 data_path = os.path.join(os.getcwd(), 'sentences.txt')
-
 
 class Word_with_blanks:
 
