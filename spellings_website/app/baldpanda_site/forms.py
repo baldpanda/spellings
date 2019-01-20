@@ -21,18 +21,15 @@ class RegistrationForm(FlaskForm):
         if user:
             raise ValidationError('Email already exists')
 
-
 class LoginForm(FlaskForm):
     email = StringField('Email', validators = [DataRequired(), Email()])
     password = PasswordField('Password', validators = [DataRequired()])
     remember = BooleanField('Remember Me')
     submit = SubmitField('Login')
 
-
 class NewSentence(FlaskForm):
     sentence = StringField('Sentence', validators=[DataRequired()])
     submit = SubmitField('Submit')
-
 
 class WordsForSheet(FlaskForm):
     words = StringField('Please enter the required words, seperating them using a comma.'
