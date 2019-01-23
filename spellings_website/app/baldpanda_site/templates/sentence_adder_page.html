@@ -8,7 +8,7 @@
       {% set list_of_words = words_to_add.split('+') %}
       {% for i in list_of_words %}
       <div class="form-group">
-        {% if words_to_add[0]=="default" %}
+        {% if words_to_add[0]!="default" %}
         Please enter a sentence with the word {{ i }} in it:
         {% endif %}
         {% if form.sentence.errors %}
