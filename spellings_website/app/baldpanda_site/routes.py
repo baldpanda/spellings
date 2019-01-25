@@ -72,7 +72,6 @@ def sentence_adder(words_to_add):
     form = form, words_to_add = words_to_add)
 
 @app.route('/worksheet/<string:words>')
-@login_required
 def word_search(words):
     sentence_list = [[],[]]
     words_list = words.split('+')
