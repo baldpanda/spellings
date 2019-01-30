@@ -1,8 +1,8 @@
 from baldpanda_site import app, db
-from baldpanda_site.example_sentence import Example_sentence
+from baldpanda_site.worksheets.sentences.example_sentence import Example_sentence
 from baldpanda_site.worksheets.forms import  WordsForSheet, NewSentence
 from baldpanda_site.models import Sentence
-from baldpanda_site.six_words_with_spaces import Six_words_with_blanks
+from baldpanda_site.worksheets.blanked_words.six_words_with_spaces import Six_words_with_blanks
 from flask import render_template, url_for, redirect, request, Blueprint, flash
 from flask_login import login_required
 
