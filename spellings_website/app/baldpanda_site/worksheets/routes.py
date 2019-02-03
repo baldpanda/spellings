@@ -4,7 +4,7 @@ from baldpanda_site.worksheets.forms import  WordsForSheet, NewSentence
 from baldpanda_site.models import Sentence
 from baldpanda_site.worksheets.blanked_words.six_words_with_spaces import Six_words_with_blanks
 from flask import render_template, url_for, redirect, request, Blueprint, flash
-from flask_login import login_required
+from flask_login import login_required, current_user
 
 worksheets = Blueprint('worksheets', __name__)
 
