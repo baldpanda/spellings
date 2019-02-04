@@ -1,4 +1,4 @@
-from baldpanda_site import app, db
+from baldpanda_site import db
 from baldpanda_site.worksheets.sentences.example_sentence import Example_sentence
 from baldpanda_site.worksheets.forms import  WordsForSheet, NewSentence
 from baldpanda_site.models import Sentence

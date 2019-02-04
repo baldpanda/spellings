@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import login_user, current_user, logout_user, login_required
 from baldpanda_site.users.utils import send_reset_email
-from baldpanda_site import app, db, bcrypt
+from baldpanda_site import db, bcrypt
 from baldpanda_site.users.forms import RegistrationForm, LoginForm, RequestResetForm, ResetPasswordForm
 from baldpanda_site.models import User
 
