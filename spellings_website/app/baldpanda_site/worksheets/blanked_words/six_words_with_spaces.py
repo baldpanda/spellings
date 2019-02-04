@@ -1,4 +1,4 @@
-from baldpanda_site.word_with_blanks import Word_with_blanks
+from baldpanda_site.worksheets.blanked_words.word_with_blanks import Word_with_blanks
 from random import sample, randint
 
 class Six_words_with_blanks:

@@ -27,15 +27,6 @@ class LoginForm(FlaskForm):
     remember = BooleanField('Remember Me')
     submit = SubmitField('Login')
 
-class NewSentence(FlaskForm):
-    sentence = StringField('Sentence', validators=[DataRequired()])
-    submit = SubmitField('Submit')
-
-class WordsForSheet(FlaskForm):
-    words = StringField('Please enter the required words, seperating them using a comma.'
-    , validators=[DataRequired()])
-    submit = SubmitField('Make Worksheet')
-
 class RequestResetForm(FlaskForm):
     email = StringField('Email', validators = [DataRequired(), Email()])
     submit = SubmitField('Request Password Reset')

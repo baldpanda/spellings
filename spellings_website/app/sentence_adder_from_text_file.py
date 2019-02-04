@@ -1,4 +1,4 @@
-from baldpanda_site import app, db
+from baldpanda_site import db
 from baldpanda_site.models import Sentence, User
 from baldpanda_site.example_sentence import Example_sentence
 import os
