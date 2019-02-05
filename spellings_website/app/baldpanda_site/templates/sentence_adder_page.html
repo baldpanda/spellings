@@ -6,10 +6,11 @@
     <fieldset class="form-group">
       <legend class="border-bottom mb-4">Add Sentence</legend>
       {% set list_of_words = words_to_add.split('+') %}
-      {% for i in list_of_words %}
       <div class="form-group">
-        {% if words_to_add[0]!="default" %}
-        Please enter a sentence with the word {{ i }} in it:
+        {% if words_to_add!="default" %}
+          Please enter a sentence with the word {{words_to_add|replace("+", " or ")}} in it:
+        {% else %}
+          Please enter a sentence you would like to add:
         {% endif %}
         {% if form.sentence.errors %}
           {{ form.sentence(class="form-control form-control-lg is-invalid") }}
@@ -22,7 +23,6 @@
           {{ form.sentence(class="form-control form-control-lg") }}
         {% endif %}
       </div>
-      {% endfor %}
     </fieldset>
     <div class="form-group">
       {{ form.submit(class="btn btn-danger m-1") }}
