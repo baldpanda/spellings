@@ -24,8 +24,11 @@ def create_app(config_class=Config):
     from baldpanda_site.users.routes import users
     from baldpanda_site.worksheets.routes import worksheets
     from baldpanda_site.main.routes import main
+    from baldpanda_site.errors.handlers import errors
+
     app.register_blueprint(users)
     app.register_blueprint(worksheets)
     app.register_blueprint(main)
+    app.register_blueprint(errors)
 
     return app
