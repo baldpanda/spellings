@@ -1,4 +1,6 @@
+from baldpanda_site.models import User
 import unittest
+import os
 
 class SimpleTest(unittest.TestCase):
     def test_equality(self):
