@@ -16,8 +16,8 @@ def spelling_page():
         words_for_search = form.words.data
         words_for_search = words_for_search.replace(" ", "")
         words_for_search = words_for_search.replace(",", "+")
-        return redirect(url_for('worksheets.word_search', words = words_for_search))
-    return render_template('wordsearch.html', sample_sentences = sentence_list, form = form)
+        return redirect(url_for('worksheets.word_search', words=words_for_search))
+    return render_template('wordsearch.html', sample_sentences=sentence_list, form=form)
 
 @worksheets.route('/worksheet/<string:words>')
 def word_search(words):
@@ -38,22 +38,22 @@ def word_search(words):
         else:
             words_not_in_db += word + "+"
     if len(words_not_in_db) == 0:
-        return render_template('worksheet.html', sample_sentences = sentence_list, words = words_for_page)
+        return render_template('worksheet.html', sample_sentences=sentence_list, words=words_for_page)
     else:
         words_not_in_db = words_not_in_db[:-1]
         return redirect(url_for('worksheets.sentence_adder', words_to_add=words_not_in_db))
 
-@worksheets.route('/sentence/<string:words_to_add>', methods = ['GET', 'POST'])
+@worksheets.route('/sentence/<string:words_to_add>', methods=['GET', 'POST'])
 @login_required
 def sentence_adder(words_to_add):
     form = NewSentence()
     if form.validate_on_submit():
         sentence_to_add_to_db = Example_sentence(form.sentence.data)
         sentence = " " + sentence_to_add_to_db.add_space_before_and_after_punct([",", ".", "!", "?", '"'])
-        sentence = Sentence(sentence = sentence, user_id = current_user.id)
+        sentence = Sentence(sentence=sentence, user_id=current_user.id)
         db.session.add(sentence)
         db.session.commit()
         flash('Your sentence has been added', 'success')
         return(redirect(url_for('worksheets.spelling_page')))
-    return render_template('sentence_adder_page.html', title = 'sentence_adder',
-    form = form, words_to_add = words_to_add)
+    return render_template('sentence_adder_page.html', title='sentence_adder',
+    form=form, words_to_add=words_to_add)
