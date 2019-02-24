@@ -12,7 +12,7 @@ class Word_with_blanks:
         word = self.word
         alt_word = list(word)
         leng = len(word)
-        #keeping apostrophe in the word at all times to avoid confusion with users
+        #not including apostrophe as letter that can be blanked
         if "'" in word:
             apost_loc = word.index("'")
             if num_blanks > apost_loc:
