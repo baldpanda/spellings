@@ -1,6 +1,6 @@
 import os
 from random import shuffle
-from baldpanda_site.worksheets.blanked_words.word_with_blanks import Word_with_blanks
+from baldpanda_site.worksheets.blanked_words.word_with_blanks import WordWithBlanks
 
 class Example_sentence:
 
@@ -45,9 +45,9 @@ class Example_sentence:
         leng = len(word)
         if "'" in word:
             apost_loc = word.split("'")
-            sentence_list[word_loc] = Word_with_blanks(apost_loc[0]).replace_all_letters_with_blanks()+ "'" + Word_with_blanks(apost_loc[1]).replace_all_letters_with_blanks()
+            sentence_list[word_loc] = WordWithBlanks(apost_loc[0]).replace_all_letters_with_blanks()+ "'" + WordWithBlanks(apost_loc[1]).replace_all_letters_with_blanks()
         else:
-            sentence_list[word_loc] = Word_with_blanks(word).replace_all_letters_with_blanks()
+            sentence_list[word_loc] = WordWithBlanks(word).replace_all_letters_with_blanks()
         updated_sentence = " ".join(sentence_list)
         self.sentence = updated_sentence
         self.sentence = self.remove_space_before_and_after_punct([",", ".", "!", "?", '"'])
