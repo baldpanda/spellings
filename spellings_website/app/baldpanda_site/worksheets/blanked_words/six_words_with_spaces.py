@@ -1,5 +1,6 @@
 """Uses word with blanks to generate the same word six times with varying numbers
-of letters replaced by blanks "_" """
+of letters replaced by blanks "_"
+"""
 from random import randint
 from baldpanda_site.worksheets.blanked_words.word_with_blanks import WordWithBlanks
 
