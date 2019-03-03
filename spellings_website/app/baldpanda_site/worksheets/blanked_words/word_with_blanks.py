@@ -14,14 +14,7 @@ class WordWithBlanks:
         leng = len(word)
         #not including apostrophe as letter that can be blanked
         if "'" in word:
-            apost_loc = word.index("'")
-            if num_blanks > apost_loc:
-                num_blanks = apost_loc
-            if randint(0, 1) == 0:
-                replace_char_index = sample(range(0, apost_loc), (num_blanks))
-            else:
-                replace_char_index = sample(range(0, apost_loc), (num_blanks))\
-                + list(range((apost_loc + 1), leng))
+            replace_char_index = self.insert_blanks_in_word_with_apost(num_blanks)
         else:
             replace_char_index = sample(range(0, leng), num_blanks)
         rev_replace_char_index = sorted(replace_char_index, reverse=True)
@@ -29,6 +22,21 @@ class WordWithBlanks:
             alt_word[i] = " _ "
         alt_word = "".join(alt_word)
         return alt_word
+
+    def insert_blanks_in_word_with_apost(self, num_blanks):
+        """Inserts n blanks into word with apostrophe"""
+        word = self.word
+        leng = len(word)
+        apost_loc = word.index("'")
+        if num_blanks > apost_loc:
+            num_blanks = apost_loc
+        if randint(0, 1) == 0:
+            replace_char_index = sample(range(0, apost_loc), (num_blanks))
+        else:
+            replace_char_index = sample(range(0, apost_loc), (num_blanks))\
+            + list(range((apost_loc + 1), leng))
+        return replace_char_index
+
 
     def replace_all_letters_with_blanks(self):
         """Replaces all letters in word with blanks"""
