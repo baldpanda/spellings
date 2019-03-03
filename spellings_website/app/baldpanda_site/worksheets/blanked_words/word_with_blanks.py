@@ -3,7 +3,8 @@ from random import sample, randint
 
 class WordWithBlanks:
     """Word with varying number of its letters
-    replaced by blanks"""
+    replaced by blanks
+    """
     def __init__(self, word):
         self.word = word
 
@@ -13,8 +14,9 @@ class WordWithBlanks:
         alt_word = list(word)
         leng = len(word)
         #not including apostrophe as letter that can be blanked
+        #since this confuses user
         if "'" in word:
-            replace_char_index = self.insert_blanks_in_word_with_apost(num_blanks)
+            replace_char_index = self.find_letters_to_replace_in_word_with_apost(num_blanks)
         else:
             replace_char_index = sample(range(0, leng), num_blanks)
         rev_replace_char_index = sorted(replace_char_index, reverse=True)
@@ -23,7 +25,7 @@ class WordWithBlanks:
         alt_word = "".join(alt_word)
         return alt_word
 
-    def insert_blanks_in_word_with_apost(self, num_blanks):
+    def find_letters_to_replace_in_word_with_apost(self, num_blanks):
         """Inserts n blanks into word with apostrophe"""
         word = self.word
         leng = len(word)
