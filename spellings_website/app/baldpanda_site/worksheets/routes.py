@@ -57,3 +57,23 @@ def sentence_adder(words_to_add):
         return(redirect(url_for('worksheets.spelling_page')))
     return render_template('sentence_adder_page.html', title='sentence_adder',
     form=form, words_to_add=words_to_add)
+
+@worksheets.route('/sentence/delete_page/<string:word>', methods=['GET','POST'])
+def find_sentence_to_delete(word):
+    string_to_query_in_middle = f"% {word} %"
+    sentence = Sentence.query.filter(Sentence.sentence.like(string_to_query_in_middle)).first()
+    if sentence:
+        sentence_with_blanks = Example_sentence(sentence.sentence)
+        sentence_with_blanks.sentence = sentence_with_blanks.remove_space_before_and_after_punct(
+        [",",".", "!", "?",'"'])
+        return render_template('delete_sentence_page.html', sample_sentence=sentence)
+    else:
+        return render_template("home.html")
+
+@worksheets.route('/sentence/delete/<int:sentence_id>', methods=['POST'])
+def delete_sentence(sentence_id):
+    sentence = Sentence.query.get_or_404(sentence_id)
+    db.session.delete(sentence)
+    db.session.commit()
+    flash('The sentence has been deleted!', 'success')
+    return render_template("home.html")

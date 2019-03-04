@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="content-section">
+    <fieldset class="form-group">
+      <legend class="border-bottom mb-4">Remove Sentence</legend>
+      <div class="form-group">
+          Would you like to delete the sentence:
+      </div>
+      <div>
+        {{sample_sentence.sentence}}
+      </div>
+      <div>
+        <form action="{{ url_for('worksheets.delete_sentence', sentence_id=sample_sentence.id)}}" method="POST">
+          <input class="btn btn-danger" type="submit" value="Delete">
+      </div>
+    </fieldset>
+</div>
+{% endblock content%}
