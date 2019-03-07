@@ -1,4 +1,3 @@
-import os
 from random import shuffle
 from baldpanda_site.worksheets.blanked_words.word_with_blanks import WordWithBlanks
 
