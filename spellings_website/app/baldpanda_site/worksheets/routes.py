@@ -1,5 +1,5 @@
 from baldpanda_site import db
-from baldpanda_site.worksheets.sentences.example_sentence import Example_sentence
+from baldpanda_site.worksheets.sentences.example_sentence import ExampleSentence
 from baldpanda_site.worksheets.forms import  WordsForSheet, NewSentence
 from baldpanda_site.models import Sentence
 from baldpanda_site.worksheets.blanked_words.six_words_with_spaces import SixWordsWithBlanks
@@ -31,7 +31,7 @@ def word_search(words):
         string_to_query_in_middle = f"% {word} %"
         sentence = Sentence.query.filter(Sentence.sentence.like(string_to_query_in_middle)).first()
         if sentence:
-            sentence_with_blanks = Example_sentence(sentence.sentence)
+            sentence_with_blanks = ExampleSentence(sentence.sentence)
             sentence_with_blanks.sentence = sentence_with_blanks.remove_space_before_and_after_punct(
             [",",".", "!", "?",'"'])
             sentence_list[1].append(sentence_with_blanks.blank_out_word_in_sentence(word))
@@ -48,7 +48,7 @@ def word_search(words):
 def sentence_adder(words_to_add):
     form = NewSentence()
     if form.validate_on_submit():
-        sentence_to_add_to_db = Example_sentence(form.sentence.data)
+        sentence_to_add_to_db = ExampleSentence(form.sentence.data)
         sentence = " " + sentence_to_add_to_db.add_space_before_and_after_punct([",", ".", "!", "?", '"'])
         sentence = Sentence(sentence=sentence, user_id=current_user.id)
         db.session.add(sentence)
@@ -63,7 +63,7 @@ def find_sentence_to_delete(word):
     string_to_query_in_middle = f"% {word} %"
     sentence = Sentence.query.filter(Sentence.sentence.like(string_to_query_in_middle)).first()
     if sentence:
-        sentence_with_blanks = Example_sentence(sentence.sentence)
+        sentence_with_blanks = ExampleSentence(sentence.sentence)
         sentence.sentence = sentence_with_blanks.remove_space_before_and_after_punct(
         [",",".", "!", "?",'"'])
         return render_template('delete_sentence_page.html', sample_sentence=sentence)
