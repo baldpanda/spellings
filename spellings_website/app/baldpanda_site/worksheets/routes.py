@@ -1,14 +1,14 @@
+from flask import render_template, url_for, redirect, Blueprint, flash
+from flask_login import login_required, current_user
 from baldpanda_site import db
 from baldpanda_site.worksheets.sentences.example_sentence import ExampleSentence
 from baldpanda_site.worksheets.forms import  WordsForSheet, NewSentence
 from baldpanda_site.models import Sentence
 from baldpanda_site.worksheets.blanked_words.six_words_with_spaces import SixWordsWithBlanks
-from flask import render_template, url_for, redirect, request, Blueprint, flash
-from flask_login import login_required, current_user
 
 worksheets = Blueprint('worksheets', __name__)
 
-@worksheets.route('/worksheet', methods = ['GET', 'POST'])
+@worksheets.route('/worksheet', methods=['GET', 'POST'])
 def spelling_page():
     form = WordsForSheet()
     sentence_list = []
@@ -21,7 +21,7 @@ def spelling_page():
 
 @worksheets.route('/worksheet/<string:words>')
 def word_search(words):
-    sentence_list = [[],[]]
+    sentence_list = [[], []]
     words_list = words.split('+')
     words_for_page = words.replace('+', ', ')
     words_not_in_db = ''
@@ -32,13 +32,15 @@ def word_search(words):
         sentence = Sentence.query.filter(Sentence.sentence.like(string_to_query_in_middle)).first()
         if sentence:
             sentence_with_blanks = ExampleSentence(sentence.sentence)
-            sentence_with_blanks.sentence = sentence_with_blanks.remove_space_before_and_after_punct(
-            [",",".", "!", "?",'"'])
+            sentence_with_blanks.sentence = \
+            sentence_with_blanks.remove_space_before_and_after_punct(\
+            [",", ".", "!", "?", '"'])
             sentence_list[1].append(sentence_with_blanks.blank_out_word_in_sentence(word))
         else:
             words_not_in_db += word + "+"
-    if len(words_not_in_db) == 0:
-        return render_template('worksheet.html', sample_sentences=sentence_list, words=words_for_page)
+    if words_not_in_db:
+        return render_template('worksheet.html', sample_sentences=sentence_list,\
+        words=words_for_page)
     else:
         words_not_in_db = words_not_in_db[:-1]
         return redirect(url_for('worksheets.sentence_adder', words_to_add=words_not_in_db))
@@ -49,23 +51,24 @@ def sentence_adder(words_to_add):
     form = NewSentence()
     if form.validate_on_submit():
         sentence_to_add_to_db = ExampleSentence(form.sentence.data)
-        sentence = " " + sentence_to_add_to_db.add_space_before_and_after_punct([",", ".", "!", "?", '"'])
+        sentence = " " + sentence_to_add_to_db.add_space_before_and_after_punct(\
+        [",", ".", "!", "?", '"'])
         sentence = Sentence(sentence=sentence, user_id=current_user.id)
         db.session.add(sentence)
         db.session.commit()
         flash('Your sentence has been added', 'success')
-        return(redirect(url_for('worksheets.spelling_page')))
-    return render_template('sentence_adder_page.html', title='sentence_adder',
+        return redirect(url_for('worksheets.spelling_page'))
+    return render_template('sentence_adder_page.html', title='sentence_adder',\
     form=form, words_to_add=words_to_add)
 
-@worksheets.route('/sentence/delete_page/<string:word>', methods=['GET','POST'])
+@worksheets.route('/sentence/delete_page/<string:word>', methods=['GET', 'POST'])
 def find_sentence_to_delete(word):
     string_to_query_in_middle = f"% {word} %"
     sentence = Sentence.query.filter(Sentence.sentence.like(string_to_query_in_middle)).first()
     if sentence:
         sentence_with_blanks = ExampleSentence(sentence.sentence)
-        sentence.sentence = sentence_with_blanks.remove_space_before_and_after_punct(
-        [",",".", "!", "?",'"'])
+        sentence.sentence = sentence_with_blanks.remove_space_before_and_after_punct(\
+        [",", ".", "!", "?", '"'])
         return render_template('delete_sentence_page.html', sample_sentence=sentence)
     else:
         return render_template("home.html")
