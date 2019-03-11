@@ -1,3 +1,4 @@
+"""Routes associated with spelling worksheets"""
 from flask import render_template, url_for, redirect, Blueprint, flash
 from flask_login import login_required, current_user
 from baldpanda_site import db
@@ -10,6 +11,7 @@ worksheets = Blueprint('worksheets', __name__)
 
 @worksheets.route('/worksheet', methods=['GET', 'POST'])
 def spelling_page():
+    """Form for passing words to word_search method"""
     form = WordsForSheet()
     sentence_list = []
     if form.validate_on_submit():
@@ -21,6 +23,9 @@ def spelling_page():
 
 @worksheets.route('/worksheet/<string:words>')
 def word_search(words):
+    """Find a sentence for each word in the route. If sentences not in db,
+    redirect to the sentence adder page, passing in the words not in db
+    """
     sentence_list = [[], []]
     words_list = words.split('+')
     words_for_page = words.replace('+', ', ')
@@ -48,6 +53,7 @@ def word_search(words):
 @worksheets.route('/sentence/<string:words_to_add>', methods=['GET', 'POST'])
 @login_required
 def sentence_adder(words_to_add):
+    """Add new sentence to db"""
     form = NewSentence()
     if form.validate_on_submit():
         sentence_to_add_to_db = ExampleSentence(form.sentence.data)
@@ -63,6 +69,7 @@ def sentence_adder(words_to_add):
 
 @worksheets.route('/sentence/delete_page/<string:word>', methods=['GET', 'POST'])
 def find_sentence_to_delete(word):
+    """Find sentence in db to delete given word"""
     string_to_query_in_middle = f"% {word} %"
     sentence = Sentence.query.filter(Sentence.sentence.like(string_to_query_in_middle)).first()
     if sentence:
@@ -76,6 +83,7 @@ def find_sentence_to_delete(word):
 @login_required
 @worksheets.route('/sentence/delete/<int:sentence_id>', methods=['POST'])
 def delete_sentence(sentence_id):
+    """Delete sentence from db"""
     sentence = Sentence.query.get_or_404(sentence_id)
     db.session.delete(sentence)
     db.session.commit()
