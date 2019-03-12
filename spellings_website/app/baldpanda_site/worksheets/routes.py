@@ -3,7 +3,7 @@ from flask import render_template, url_for, redirect, Blueprint, flash
 from flask_login import login_required, current_user
 from baldpanda_site import db
 from baldpanda_site.worksheets.sentences.example_sentence import ExampleSentence
-from baldpanda_site.worksheets.forms import  WordsForSheet, NewSentence
+from baldpanda_site.worksheets.forms import  WordsForSheet, NewSentence, SentenceToDelete
 from baldpanda_site.models import Sentence
 from baldpanda_site.worksheets.blanked_words.six_words_with_spaces import SixWordsWithBlanks
 
@@ -67,10 +67,10 @@ def sentence_adder(words_to_add):
     return render_template('sentence_adder_page.html', title='sentence_adder',\
     form=form, words_to_add=words_to_add)
 
-@worksheets.route('/sentence/delete_page/<string:word>', methods=['GET', 'POST'])
-def find_sentence_to_delete(word):
+@worksheets.route('/sentence/delete_page/<string:sent>', methods=['GET', 'POST'])
+def find_sentence_to_delete(sent):
     """Find sentence in db to delete given word"""
-    string_to_query_in_middle = f"% {word} %"
+    string_to_query_in_middle = f"% {sent} %"
     sentence = Sentence.query.filter(Sentence.sentence.like(string_to_query_in_middle)).first()
     if sentence:
         sentence_with_blanks = ExampleSentence(sentence.sentence)
@@ -89,3 +89,12 @@ def delete_sentence(sentence_id):
     db.session.commit()
     flash('The sentence has been deleted!', 'success')
     return render_template("home.html")
+
+@worksheets.route('/sentence/delete_page/', methods=['GET', 'POST'])
+def delete_sentence_page():
+    """Page for searching for sentence to delete"""
+    form = SentenceToDelete()
+    if form.validate_on_submit():
+        sentence_for_search = form.sentence.data
+        return redirect(url_for('worksheets.find_sentence_to_delete', sent=sentence_for_search))
+    return render_template('sentence_to_delete_search.html', form=form)

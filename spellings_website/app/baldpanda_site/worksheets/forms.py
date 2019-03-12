@@ -16,3 +16,9 @@ class WordsForSheet(FlaskForm):
     words = StringField('Please enter the required words, seperating them using a comma.'\
     , validators=[DataRequired()])
     submit = SubmitField('Make Worksheet')
+
+class SentenceToDelete(FlaskForm):
+    """Form for finding sentence user would like to delete"""
+    sentence = StringField('Please enter part of or the full sentence you would like to delete '\
+    , validators=[DataRequired()])
+    submit = SubmitField('Find Sentence To Delete')
