@@ -1,12 +1,24 @@
+"""Forms for adding sentences to db and
+submitting required words to worksheet
+"""
+
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
 
 class NewSentence(FlaskForm):
+    """Form for adding new sentence to db"""
     sentence = StringField('Sentence', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
 class WordsForSheet(FlaskForm):
-    words = StringField('Please enter the required words, seperating them using a comma.'
+    """Form for submitting required words for worksheet"""
+    words = StringField('Please enter the required words, seperating them using a comma.'\
     , validators=[DataRequired()])
     submit = SubmitField('Make Worksheet')
+
+class SentenceToDelete(FlaskForm):
+    """Form for finding sentence user would like to delete"""
+    sentence = StringField('Please enter part of or the full sentence you would like to delete '\
+    , validators=[DataRequired()])
+    submit = SubmitField('Find Sentence To Delete')
