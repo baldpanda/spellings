@@ -23,10 +23,7 @@ def spelling_page():
 
 @worksheets.route('/worksheet/<string:words>')
 def word_search(words):
-    """Find a sentence for each word in the route. If sentences not in db,
-    redirect to the sentence adder page, passing in the words not in db
-    """
-    sentence_list = [[], []]
+    sentence_list = [[],[]]
     words_list = words.split('+')
     words_for_page = words.replace('+', ', ')
     words_not_in_db = ''
@@ -37,15 +34,13 @@ def word_search(words):
         sentence = Sentence.query.filter(Sentence.sentence.like(string_to_query_in_middle)).first()
         if sentence:
             sentence_with_blanks = ExampleSentence(sentence.sentence)
-            sentence_with_blanks.sentence = \
-            sentence_with_blanks.remove_space_before_and_after_punct(\
-            [",", ".", "!", "?", '"'])
+            sentence_with_blanks.sentence = sentence_with_blanks.remove_space_before_and_after_punct(
+            [",",".", "!", "?",'"'])
             sentence_list[1].append(sentence_with_blanks.blank_out_word_in_sentence(word))
         else:
             words_not_in_db += word + "+"
-    if words_not_in_db:
-        return render_template('worksheet.html', sample_sentences=sentence_list,\
-        words=words_for_page)
+    if len(words_not_in_db) == 0:
+        return render_template('worksheet.html', sample_sentences=sentence_list, words=words_for_page)
     else:
         words_not_in_db = words_not_in_db[:-1]
         return redirect(url_for('worksheets.sentence_adder', words_to_add=words_not_in_db))
