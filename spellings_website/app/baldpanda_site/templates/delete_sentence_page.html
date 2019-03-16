@@ -9,7 +9,7 @@
       <div class="form-group">
         <b>{{sample_sentence.sentence}}</b>
       </div>
-      <div>
+      <div class="form-group">
         <form action="{{ url_for('worksheets.delete_sentence', sentence_id=sample_sentence.id)}}" method="POST">
           <input class="btn btn-danger" type="submit" value="Delete">
       </div>
