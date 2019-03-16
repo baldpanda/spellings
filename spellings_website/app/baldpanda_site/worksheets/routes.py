@@ -3,7 +3,7 @@ from flask import render_template, url_for, redirect, Blueprint, flash
 from flask_login import login_required, current_user
 from baldpanda_site import db
 from baldpanda_site.worksheets.sentences.example_sentence import ExampleSentence
-from baldpanda_site.worksheets.forms import  WordsForSheet, NewSentence, SentenceToDelete
+from baldpanda_site.worksheets.forms import  WordsForSheet, NewSentence, SentenceToDelete, DeleteSentence
 from baldpanda_site.models import Sentence
 from baldpanda_site.worksheets.blanked_words.six_words_with_spaces import SixWordsWithBlanks
 
