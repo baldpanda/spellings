@@ -8,9 +8,9 @@
       {% set list_of_words = words_to_add.split('+') %}
       <div class="form-group">
         {% if words_to_add!="default" %}
-          Please enter a sentence with the word {{words_to_add|replace("+", " or ")}} in it:
+          Please enter a sentence with the word {{words_to_add|replace("+", " or ")}} in it.
         {% else %}
-          Please enter a sentence you would like to add:
+          Please enter a sentence you would like to add.
         {% endif %}
         {% if form.sentence.errors %}
           {{ form.sentence(class="form-control form-control-lg is-invalid") }}
