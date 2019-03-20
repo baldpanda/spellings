@@ -19,12 +19,12 @@ class WordsForSheet(FlaskForm):
 
 class SentenceToDelete(FlaskForm):
     """Form for finding sentence user would like to delete"""
-    sentence = StringField('Please enter part of sentence you would like to delete:'\
+    sentence = StringField('Please enter part of sentence you would like to delete.'\
     , validators=[DataRequired()])
     submit = SubmitField('Find Sentence To Delete')
 
 class DeleteSentence(FlaskForm):
     """Form for deleting a sentence"""
-    sentence = StringField('Would you like to delete the sentence below:'\
+    sentence = StringField('Would you like to delete the following sentence?'\
     , validators=[DataRequired()])
     submit = SubmitField('Delete Sentence')

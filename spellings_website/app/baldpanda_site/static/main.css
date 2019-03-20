@@ -86,8 +86,8 @@ a.article-title:hover {
 
 .dropbtn {
   color: white;
-  padding: 16px;
-  font-size: 20px;
+  padding: 0px;
+  font-size: 18px;
   border: none;
   cursor: pointer;
   background-color: inherit;
