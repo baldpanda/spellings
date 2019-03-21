@@ -10,7 +10,7 @@
         {% if words_to_add!="default" %}
           Please enter a sentence with the word {{words_to_add|replace("+", " or ")}} in it.
         {% else %}
-          Please enter a sentence you would like to add.
+          {{ form.sentence.label(class="form-control-label") }}
         {% endif %}
         {% if form.sentence.errors %}
           {{ form.sentence(class="form-control form-control-lg is-invalid") }}
@@ -19,9 +19,9 @@
               <span>{{ error }}</span>
             {% endfor %}
           </div>
-        {% else %}
-          {{ form.sentence(class="form-control form-control-lg") }}
-        {% endif %}
+          {% else %}
+            {{ form.sentence(class="form-control form-control-lg") }}
+          {% endif %}
       </div>
     </fieldset>
     <div class="form-group">

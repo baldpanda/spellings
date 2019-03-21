@@ -8,7 +8,7 @@ from wtforms.validators import DataRequired
 
 class NewSentence(FlaskForm):
     """Form for adding new sentence to db"""
-    sentence = StringField('Sentence', validators=[DataRequired()])
+    sentence = StringField('Please enter a sentence you would like to add.', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
 class WordsForSheet(FlaskForm):
