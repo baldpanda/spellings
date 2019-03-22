@@ -84,6 +84,10 @@ a.article-title:hover {
   background-color: #006dcc;
 }
 
+.adding-custom-words-form{
+  margin-bottom: 5px;
+}
+
 .dropbtn {
   color: white;
   padding: 0px;
