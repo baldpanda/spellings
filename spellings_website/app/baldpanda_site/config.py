@@ -1,7 +1,7 @@
 import os
 
 class Config:
-    SECRET_KEY = os.environ.get('PANDA_SECRET_KEY')
+    SECRET_KEY = os.environ.get('PANDA_NEW_SECRET_KEY')
     SQLALCHEMY_DATABASE_URI = os.environ.get('PANDA_DB_URI')
     MAIL_SERVER = 'smtp.gmail.com'
     MAIL_PORT = 587
