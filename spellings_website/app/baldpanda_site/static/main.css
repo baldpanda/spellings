@@ -130,3 +130,11 @@ a.article-title:hover {
 .dropdown:hover .dropdown-content {
   display: block;
 }
+
+.adding-custom-words-form{
+  margin-bottom: 5px;
+}
+
+.adding-spacing-first-worksheet-section{
+  margin-bottom: 30px;
+}

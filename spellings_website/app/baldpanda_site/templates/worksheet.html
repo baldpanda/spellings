@@ -7,15 +7,24 @@
   </body>
 {% endif %}
 </div>
+<div class="adding-spacing-first-worksheet-section">
+  <p>
+    {% set words_with_spaces = sample_sentences[0]%}
+      {% for line in words_with_spaces %}
+      <body>
+        <p>{{line}}</p>
+      </body>
+      {% endfor %}
+  </p>
+</div>
 <div>
   <p>
-    {% for sentence_list in sample_sentences %}
-      {% for sentence in sentence_list %}
+    {% set sentences_with_blanks = sample_sentences[1]%}
+      {% for sentence in sentences_with_blanks %}
       <body>
         <p>{{sentence}}</p>
       </body>
       {% endfor %}
-    {% endfor %}
   </p>
 </div>
 {% endblock content%}
