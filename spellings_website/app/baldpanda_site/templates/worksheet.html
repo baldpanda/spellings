@@ -1,13 +1,13 @@
 {% extends "layout.html" %}
 {% block content %}
 {% if words %}
-<div>
+<div class="adding-spacing-worksheet-sections">
   <body>
   This weeks spellings are: <b> {{ words }} </b>
   </body>
 {% endif %}
 </div>
-<div class="adding-spacing-first-worksheet-section">
+<div class="adding-spacing-worksheet-sections">
   <p>
     {% set words_with_spaces = sample_sentences[0]%}
       {% for line in words_with_spaces %}
