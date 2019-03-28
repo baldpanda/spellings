@@ -14,7 +14,7 @@ class NewSentence(FlaskForm):
 class WordsForSheet(FlaskForm):
     """Form for submitting required words for worksheet"""
     words = StringField("Please enter the spellings for the worksheet,\
-     seperating them using a comma.", validators=[DataRequired()])
+     separating them using a comma.", validators=[DataRequired()])
     submit = SubmitField('Make Worksheet')
 
 class SentenceToDelete(FlaskForm):
